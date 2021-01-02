@@ -20,11 +20,11 @@ class FlexNum {
         }
 
         if(this.is_bigint()){
-            this.number += BigInt(num);
+            this.number += this.convert_to_bigint(num);
         }
         else if(this.is_number() && typeof num === 'number'){
             if(this.above_max_safe(this.number + num)){
-                this.number = BigInt(this.number) + BigInt(num);
+                this.number = this.convert_to_bigint(this.number) + this.convert_to_bigint(num);
             }
             else{
                 this.number += num;
@@ -32,8 +32,8 @@ class FlexNum {
             
         }
         else if(this.is_number() && typeof num ==='bigint'){
-            if(this.above_max_safe(BigInt(this.number) + num)){
-                this.number = BigInt(this.number) + num;
+            if(this.above_max_safe(this.convert_to_bigint(this.number) + num)){
+                this.number = this.convert_to_bigint(this.number) + num;
             }
             else{
                 this.number = this.number + Number(num);
@@ -42,16 +42,21 @@ class FlexNum {
         
     }
 
+    
     minus(num){
-
+        
     }
-
+    
     times(num){
-
+        
     }
-
+    
     div(num){
 
+    }
+    
+    convert_to_bigint(num){
+        return BigInt(parseInt(num));
     }
 
     //checks if passed number is above max safe 

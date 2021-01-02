@@ -37,4 +37,3 @@ y = new FlexNum(11111111111111111111n);
 
 x.plus(y);
 console.log(x.toString());
-console.log(y instanceof FlexNum)
