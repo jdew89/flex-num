@@ -39,12 +39,35 @@ class FlexNum {
                 this.number = this.number + Number(num);
             }
         }
-        
     }
 
     
     minus(num){
-        
+        //if number is a FlexNum, convert it to just the raw number
+        if(num instanceof FlexNum){
+            num = num.number;
+        }
+
+        if(this.is_bigint()){
+            this.number -= this.convert_to_bigint(num);
+        }
+        else if(this.is_number() && typeof num === 'number'){
+            if(this.below_min_safe(this.number - num)){
+                this.number = this.convert_to_bigint(this.number) - this.convert_to_bigint(num);
+            }
+            else{
+                this.number -= num;
+            }
+            
+        }
+        else if(this.is_number() && typeof num ==='bigint'){
+            if(this.below_min_safe(this.convert_to_bigint(this.number) - num)){
+                this.number = this.convert_to_bigint(this.number) - num;
+            }
+            else{
+                this.number = this.number - Number(num);
+            }
+        }
     }
     
     times(num){
@@ -63,6 +86,10 @@ class FlexNum {
     //return true if above safe
     above_max_safe(num){
         return (num > Number.MAX_SAFE_INTEGER / Math.pow(10,this.precision));
+    }
+
+    below_min_safe(num){
+        return (num < Number.MIN_SAFE_INTEGER / Math.pow(10,this.precision));
     }
 
     //checks to make sure the type is a number or BigInt
