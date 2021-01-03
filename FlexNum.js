@@ -1,7 +1,7 @@
 class FlexNum {
     //Pass num as a Number, BigInt, or String of numbers. 
     //Constructor will decide what type to give the variable.
-    constructor(num, precisionDecimals = 0){
+    constructor(num, precisionDecimals = 3){
         this.precision = precisionDecimals; //tracks decimal point location
         if(this.above_max_safe(num)){
             this.number = BigInt(num);
@@ -20,24 +20,36 @@ class FlexNum {
         }
 
         if(this.is_bigint()){
-            this.number += this.convert_to_bigint(num);
-        }
-        else if(this.is_number() && typeof num === 'number'){
-            if(this.above_max_safe(this.number + num)){
-                this.number = this.convert_to_bigint(this.number) + this.convert_to_bigint(num);
-            }
-            else{
+            if(typeof num === 'bigint'){
                 this.number += num;
             }
-            
-        }
-        else if(this.is_number() && typeof num ==='bigint'){
-            if(this.above_max_safe(this.convert_to_bigint(this.number) + num)){
-                this.number = this.convert_to_bigint(this.number) + num;
-            }
             else{
-                this.number = this.number + Number(num);
+                this.number += this.convert_to_bigint(num);
             }
+            
+            if(!this.above_max_safe(this.number) && !this.below_min_safe(this.number)){
+                this.number = Number(this.number);
+            }
+        }
+        else{
+            if(typeof num === 'number'){
+                if(this.above_max_safe(this.number + num) || this.below_min_safe(this.number + num)){
+                    this.number = this.convert_to_bigint(this.number) + this.convert_to_bigint(num);
+                }
+                else{
+                    this.number += num;
+                }
+                
+            }
+            else {
+                if(this.above_max_safe(this.convert_to_bigint(this.number) + num) || this.below_min_safe(this.convert_to_bigint(this.number) + num)){
+                    this.number = this.convert_to_bigint(this.number) + num;
+                }
+                else{
+                    this.number = this.number + Number(num);
+                }
+            }
+
         }
     }
 
@@ -49,29 +61,82 @@ class FlexNum {
         }
 
         if(this.is_bigint()){
-            this.number -= this.convert_to_bigint(num);
-        }
-        else if(this.is_number() && typeof num === 'number'){
-            if(this.below_min_safe(this.number - num)){
-                this.number = this.convert_to_bigint(this.number) - this.convert_to_bigint(num);
-            }
-            else{
+            if(typeof num === 'bigint'){
                 this.number -= num;
             }
-            
+            else{
+                this.number -= this.convert_to_bigint(num);
+            }
+
+            //if between +/- safe ints, convert to Number
+            if(!this.above_max_safe(this.number) && !this.below_min_safe(this.number)){
+                this.number = Number(this.number);
+            }
         }
-        else if(this.is_number() && typeof num ==='bigint'){
-            if(this.below_min_safe(this.convert_to_bigint(this.number) - num)){
-                this.number = this.convert_to_bigint(this.number) - num;
+        else{
+            if(typeof num === 'number'){
+                if(this.above_max_safe(this.number - num) || this.below_min_safe(this.number - num)){
+                    this.number = this.convert_to_bigint(this.number) - this.convert_to_bigint(num);
+                }
+                else{
+                    this.number -= num;
+                }
+                
             }
             else{
-                this.number = this.number - Number(num);
+                if(this.above_max_safe(this.convert_to_bigint(this.number) - num) || this.below_min_safe(this.convert_to_bigint(this.number) - num)){
+                    this.number = this.convert_to_bigint(this.number) - num;
+                }
+                else{
+                    this.number = this.number - Number(num);
+                }
             }
         }
     }
     
-    times(num){
-        
+    mult(num){
+        //if number is a FlexNum, convert it to just the raw number
+        if(num instanceof FlexNum){
+            num = num.number;
+        }
+
+        if(this.is_bigint()){
+            if(typeof num === 'bigint'){
+                this.number *= num;
+            }
+            else{
+                
+                this.number *= this.convert_to_bigint(num * Math.pow(10, this.precision));
+                this.number /= BigInt(Math.pow(10,this.precision));
+            }
+            
+            if(!this.above_max_safe(this.number) && !this.below_min_safe(this.number)){
+                this.number = Number(this.number);
+            }
+        }
+        else{
+            if(typeof num === 'number'){
+               if(this.above_max_safe(this.number * num) || this.below_min_safe(this.number * num)){
+                   this.number = this.convert_to_bigint(this.number) * this.convert_to_bigint(num);
+               }
+               else{
+                   this.number *= num;
+               }
+           }
+           else{
+               this.number *= Math.pow(10, this.precision);
+               
+               if(this.above_max_safe(this.convert_to_bigint(this.number) * num)){
+                   this.number = this.convert_to_bigint(this.number) * num;
+                   this.number /= BigInt(Math.pow(10,this.precision));
+               }
+               else{
+                   this.number = this.number * Number(num);
+                   this.number /= Math.pow(this.precision);
+               }
+
+           }
+        }
     }
     
     div(num){
