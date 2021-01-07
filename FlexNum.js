@@ -139,8 +139,51 @@ class FlexNum {
         }
     }
     
-    div(num){
+    divide(num){
+        //if number is a FlexNum, convert it to just the raw number
+        if(num instanceof FlexNum){
+            num = num.number;
+        }
 
+        if(num == 0){
+            throw new Error(`Cannot divide by zero.`);
+        }
+
+        if(this.is_bigint()){
+            if(typeof num === 'bigint'){
+                this.number /= num;
+            }
+            else{
+                this.number *= BigInt(Math.pow(10,this.precision)); //move decimal for precision
+                this.number /= this.convert_to_bigint(num * Math.pow(10, this.precision)); //return decimal for precision
+            }
+            
+            if(!this.above_max_safe(this.number) && !this.below_min_safe(this.number)){
+                this.number = Number(this.number);
+            }
+        }
+        else{
+            if(typeof num === 'number'){
+               if(this.above_max_safe(this.number / num) || this.below_min_safe(this.number / num)){
+                   this.number = this.number / num;
+               }
+               else{
+                   this.number /= num;
+               }
+           }
+           else{
+               this.number *= Math.pow(10, this.precision);
+               
+               if(this.above_max_safe(this.convert_to_bigint(this.number) / num)){
+                   this.number = this.convert_to_bigint(this.number) / num;
+                   this.number /= BigInt(Math.pow(10,this.precision));
+               }
+               else{
+                   this.number = this.number / Number(num);
+                   this.number /= Math.pow(10,this.precision);
+               }
+           }
+        }
     }
     
     convert_to_bigint(num){
@@ -160,8 +203,7 @@ class FlexNum {
     //checks to make sure the type is a number or BigInt
     check_NaN(){
         if(isNaN(this.number)){
-            console.trace();
-            throw `ERROR: "${num}" must be a Number or BigInt.`;
+            throw new Error(`ERROR: "${num}" must be a Number or BigInt.`);
         }
     }
 

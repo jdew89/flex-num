@@ -133,3 +133,41 @@ y = new FlexNum(11111111111111111111n);
 x.mult(y);
 console.log("\nExpected output: 44444444444444444444n");
 console.log(x.toString());
+
+
+//***Testing Division***
+console.log("\n***********Divide***********");
+
+//Big divide Big
+x = new FlexNum(10000000000000000001n);
+y = 1000000000000000000n;
+
+x.divide(y);
+console.log("\nExpected output: 10");
+console.log(x.toString());
+
+//Big divide little
+x = new FlexNum(10000000000000000010n);
+y = 10;
+
+x.divide(y);
+console.log("\nExpected output: 1000000000000000001n");
+console.log(x.toString());
+
+//little divide big
+x = new FlexNum(1.1);
+y = 1000000000n;
+
+x.divide(y);
+console.log("\nExpected output: 1.1e-9");
+console.log(x.toString());
+
+//little divide little
+x = new FlexNum(10);
+y = 2;
+
+x.divide(y);
+console.log("\nExpected output: 5");
+console.log(x.toString());
+
+
