@@ -2,7 +2,7 @@
   "name": "flex-num",
   "version": "1.0.0",
   "description": "A Javascript Module for flexing Numbers to/from BigInts's and executing operations between the two classes.",
-  "main": "index.js",
+  "main": "FlexNum.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
