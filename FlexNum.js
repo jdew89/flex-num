@@ -124,6 +124,8 @@ class FlexNum {
                }
            }
            else{
+               //TODO if this is close to max, moving the pointer before 
+               //converting to BigInt will cause precision errors
                this.number *= Math.pow(10, this.precision);
                
                if(this.above_max_safe(this.convert_to_bigint(this.number) * num)){
@@ -172,6 +174,8 @@ class FlexNum {
                }
            }
            else{
+               //TODO if this is close to max, moving the pointer before 
+               //converting to BigInt will cause precision errors
                this.number *= Math.pow(10, this.precision);
                
                if(this.above_max_safe(this.convert_to_bigint(this.number) / num)){
@@ -209,7 +213,7 @@ class FlexNum {
 
 
     //>>>>>>>> regular compares actually work so I might not need these.
-    
+
     //greater than
     gt(num){
         if (num instanceof FlexNum) {
@@ -242,7 +246,12 @@ class FlexNum {
     }
     
     toString(){
-        return this.number;
+        if(this.is_number()){
+            return this.number.toFixed(this.precision);
+        }
+        else{
+            return this.number;
+        }
     }
 }
 
