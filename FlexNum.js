@@ -207,6 +207,28 @@ class FlexNum {
         }
     }
 
+    //greater than
+    gt(num){
+        if (num instanceof FlexNum) {
+            num = num.number;
+        }
+        return this.number > num;
+    }
+
+    //less than
+    lt(num){
+        if (num instanceof FlexNum) {
+            num = num.number;
+        }
+        return this.number < num;
+    }
+
+    equal(num){
+        if (num instanceof FlexNum) {
+            num = num.number;
+        }
+        return this.number == num;
+    }
     
     is_number(){
         return typeof this.number === 'number';
@@ -215,7 +237,6 @@ class FlexNum {
     is_bigint(){
         return typeof this.number === 'bigint';
     }
-    
     
     toString(){
         return this.number;
