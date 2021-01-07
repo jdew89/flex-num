@@ -207,6 +207,9 @@ class FlexNum {
         }
     }
 
+
+    //>>>>>>>> regular compares actually work so I might not need these.
+    
     //greater than
     gt(num){
         if (num instanceof FlexNum) {

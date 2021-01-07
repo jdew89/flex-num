@@ -171,3 +171,26 @@ console.log("\nExpected output: 5");
 console.log(x.toString());
 
 
+//***Testing compares***
+console.log("\n***********Compares***********");
+
+x = new FlexNum(1);
+y = 2;
+
+console.log("\nExpected output: true");
+console.log(x.lt(y));
+
+x = new FlexNum(11);
+y = new FlexNum(5);
+
+console.log("\nExpected output: false");
+console.log(x.lt(y));
+
+x = new FlexNum(5);
+y = new FlexNum(5);
+
+console.log("\nExpected output: true");
+console.log(x.equal(y));
+
+console.log(x > y);
+
