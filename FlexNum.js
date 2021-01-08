@@ -51,7 +51,7 @@ class FlexNum {
             }
         }
         if (this.is_number()) {
-            this.number.toFixed(this.precision);
+            this.number = this.number.toFixed(this.precision);
         }
     }
 
@@ -95,7 +95,7 @@ class FlexNum {
             }
         }
         if (this.is_number()) {
-            this.number.toFixed(this.precision);
+            this.number = this.number.toFixed(this.precision);
         }
     }
     
@@ -145,7 +145,7 @@ class FlexNum {
            }
         }
         if (this.is_number()) {
-            this.number.toFixed(this.precision);
+            this.number = this.number.toFixed(this.precision);
         }
     }
     
@@ -197,7 +197,7 @@ class FlexNum {
            }
         }
         if(this.is_number() ){
-            this.number.toFixed(this.precision);
+            this.number = this.number.toFixed(this.precision);
         }
     }
     
