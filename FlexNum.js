@@ -246,12 +246,7 @@ class FlexNum {
     }
     
     toString(){
-        if(this.is_number()){
-            return this.number.toFixed(this.precision);
-        }
-        else{
-            return this.number;
-        }
+        return this.number;
     }
 }
 
