@@ -50,9 +50,6 @@ class FlexNum {
                 }
             }
         }
-        if (this.is_number()) {
-            this.number = this.number.toFixed(this.precision);
-        }
     }
 
     
@@ -93,9 +90,6 @@ class FlexNum {
                     this.number = this.number - Number(num);
                 }
             }
-        }
-        if (this.is_number()) {
-            this.number = this.number.toFixed(this.precision);
         }
     }
     
@@ -143,9 +137,6 @@ class FlexNum {
                }
 
            }
-        }
-        if (this.is_number()) {
-            this.number = this.number.toFixed(this.precision);
         }
     }
     
@@ -195,9 +186,6 @@ class FlexNum {
                    this.number /= Math.pow(10,this.precision);
                }
            }
-        }
-        if(this.is_number() ){
-            this.number = this.number.toFixed(this.precision);
         }
     }
     
@@ -257,7 +245,18 @@ class FlexNum {
     }
     
     toString(){
-        return this.number;
+        return this.number.toString();
+    }
+
+    //TODO edit this to return only 6 digits with Big name
+    to_big_string(){
+        if(this.is_number()){
+            return this.number.toFixed(3);
+        }
+        else{
+            if(this.number.toString())
+            return this.number;
+        }
     }
 }
 

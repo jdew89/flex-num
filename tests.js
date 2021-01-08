@@ -194,3 +194,12 @@ console.log(x.equal(y));
 
 console.log(x > y);
 
+
+// OTHER
+x = new FlexNum(5.999999);
+y = new FlexNum(123456789023456789n);
+
+console.log(x.toString());
+console.log(x.to_big_string());
+console.log(y.toString());
+console.log(y.to_big_string());
