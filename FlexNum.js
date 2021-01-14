@@ -258,6 +258,17 @@ class FlexNum {
             return this.number;
         }
     }
+
+    //only returned integer string with no decimals.
+    to_integer_string(){
+        if (this.is_number()) {
+            return this.number.toFixed(0);
+        }
+        else {
+            if (this.number.toString())
+                return this.number;
+        }
+    }
 }
 
 module.exports = FlexNum;
