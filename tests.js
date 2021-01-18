@@ -203,3 +203,16 @@ console.log(x.toString());
 console.log(x.to_big_string());
 console.log(y.toString());
 console.log(y.to_big_string());
+
+
+//Testing constructor behavior with passing a FlexNum
+x = new FlexNum(10);
+y = new FlexNum(20);
+
+x = new FlexNum(y);
+console.log("==============");
+console.log(x);
+console.log(y);
+x.plus(11);
+console.log(x);
+console.log(y);
