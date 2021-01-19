@@ -221,12 +221,28 @@ class FlexNum {
         return this.number > num;
     }
 
+    //greater than or equal
+    gte(num) {
+        if (num instanceof FlexNum) {
+            num = num.number;
+        }
+        return this.number >= num;
+    }
+
     //less than
     lt(num){
         if (num instanceof FlexNum) {
             num = num.number;
         }
         return this.number < num;
+    }
+
+    //less than or equal
+    lte(num) {
+        if (num instanceof FlexNum) {
+            num = num.number;
+        }
+        return this.number <= num;
     }
 
     equal(num){
