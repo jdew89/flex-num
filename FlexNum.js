@@ -326,6 +326,10 @@ class FlexNum {
         if (num instanceof FlexNum) {
             num = num.number;
         }
+        //if x is a decimal, throw error
+        if (typeof x === 'number' && x % 1 != 0) {
+            throw new Error(`"${x}" must be an Integer.`);
+        }
 
         if (this.is_bigint()) {
             if (typeof num === 'bigint') {
