@@ -233,7 +233,7 @@ console.log(y);
 x.abs();
 console.log(x);
 
-console.log("\n***********Math power and mod funcs***********");
+console.log("\n***********power func***********");
 x = new FlexNum(-2);
 y = 201;
 
@@ -241,4 +241,14 @@ x.pow(y);
 console.log(x);
 y = 2.5;
 x.plus(y);
+console.log(x);
+
+console.log("\n***********mod func***********");
+x = new FlexNum(10);
+y = 4;
+
+x.mod(y);
+console.log(x);
+y = 2.5;
+x.mod(y);
 console.log(x);
