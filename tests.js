@@ -187,15 +187,15 @@ console.log("\nExpected output: false");
 console.log(x.lt(y));
 
 x = new FlexNum(5);
-y = new FlexNum(5);
+y = new FlexNum(4);
 
 console.log("\nExpected output: true");
-console.log(x.equal(y));
+console.log(x.lte(y));
 
-console.log(x > y);
 
 
 // OTHER
+console.log("\n***********To Strings***********");
 x = new FlexNum(5.999999);
 y = new FlexNum(123456789023456789n);
 
@@ -206,6 +206,7 @@ console.log(y.to_big_string());
 
 
 //Testing constructor behavior with passing a FlexNum
+console.log("\n***********Passing FlexNums to Constructor***********");
 x = new FlexNum(10);
 y = new FlexNum(20);
 
@@ -216,3 +217,28 @@ console.log(y);
 x.plus(11);
 console.log(x);
 console.log(y);
+
+
+//Testing Math funcs
+console.log("\n***********Math rounding funcs***********");
+
+x = new FlexNum(-1.1);
+y = new FlexNum(2.5);
+
+x.round();
+y.round();
+console.log(x);
+console.log(y);
+
+x.abs();
+console.log(x);
+
+console.log("\n***********Math power and mod funcs***********");
+x = new FlexNum(-2);
+y = 201;
+
+x.pow(y);
+console.log(x);
+y = 2.5;
+x.plus(y);
+console.log(x);

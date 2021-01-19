@@ -283,8 +283,15 @@ class FlexNum {
 
     //raises this number to power of x
     pow(x){
-        if (num instanceof FlexNum) {
-            num = num.number;
+        if (x instanceof FlexNum) {
+            x = x.number;
+        }
+        if( x < 0){
+            throw new Error(`"${x}" must be positive.`);
+        }
+        //if x is a decimal, throw error
+        if( typeof x === 'number' && x % 1 != 0){
+            throw new Error(`"${x}" must be an Integer.`);
         }
         if(this.is_number()){
             if (typeof x === 'number'){
@@ -305,7 +312,7 @@ class FlexNum {
         }
         else{ //if this is a BigInt
             if (typeof x === 'number') {
-                this.number = this.convert_to_bigint(this.number);
+                x = this.convert_to_bigint(x);
                 this.number **= x;
             }
             else {
