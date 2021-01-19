@@ -251,6 +251,115 @@ class FlexNum {
         }
         return this.number == num;
     }
+
+    floor(){
+        if(this.is_number()){
+            this.number = Math.floor(this.number);
+        }
+    }
+
+    ceil(){
+        if (this.is_number()) {
+            this.number = Math.ceil(this.number);
+        }
+    }
+
+    round(){
+        if (this.is_number()) {
+            this.number = Math.round(this.number);
+        }
+    }
+
+    abs(){
+        if(this.is_number()){
+            this.number = Math.abs(this.number);
+        }
+        else{
+            if(this.number < 0){
+                this.number = this.number * -1n;
+            }
+        }
+    }
+
+    //raises this number to power of x
+    pow(x){
+        if (num instanceof FlexNum) {
+            num = num.number;
+        }
+        if(this.is_number()){
+            if (typeof x === 'number'){
+                let temp = Math.pow(this.number, x);
+                if (this.above_max_safe(temp) || this.below_min_safe(temp)){
+                    this.number = this.convert_to_bigint(this.number);
+                    x = this.convert_to_bigint(x);
+                    this.number **= x;
+                }
+                else{
+                    this.number = temp;
+                }
+            }
+            else{
+                this.number = this.convert_to_bigint(this.number);
+                this.number **= x;
+            }
+        }
+        else{ //if this is a BigInt
+            if (typeof x === 'number') {
+                this.number = this.convert_to_bigint(this.number);
+                this.number **= x;
+            }
+            else {
+                this.number **= x;
+            }
+        }
+    }
+
+    mod(num) {
+        //if number is a FlexNum, convert it to just the raw number
+        if (num instanceof FlexNum) {
+            num = num.number;
+        }
+
+        if (this.is_bigint()) {
+            if (typeof num === 'bigint') {
+                this.number *= num;
+            }
+            else {
+
+                this.number *= this.convert_to_bigint(num * Math.pow(10, this.precision));
+                this.number /= BigInt(Math.pow(10, this.precision));
+            }
+
+            if (!this.above_max_safe(this.number) && !this.below_min_safe(this.number)) {
+                this.number = Number(this.number);
+            }
+        }
+        else {
+            if (typeof num === 'number') {
+                if (this.above_max_safe(this.number * num) || this.below_min_safe(this.number * num)) {
+                    this.number = this.convert_to_bigint(this.number) * this.convert_to_bigint(num);
+                }
+                else {
+                    this.number *= num;
+                }
+            }
+            else {
+                //TODO if this is close to max, moving the pointer before 
+                //converting to BigInt will cause precision errors
+                this.number *= Math.pow(10, this.precision);
+
+                if (this.above_max_safe(this.convert_to_bigint(this.number) * num)) {
+                    this.number = this.convert_to_bigint(this.number) * num;
+                    this.number /= BigInt(Math.pow(10, this.precision));
+                }
+                else {
+                    this.number = this.number * Number(num);
+                    this.number /= Math.pow(this.precision);
+                }
+
+            }
+        }
+    }
     
     is_number(){
         return typeof this.number === 'number';
