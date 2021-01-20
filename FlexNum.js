@@ -1,30 +1,30 @@
-class FlexNum {
-    //Pass num as a Number, BigInt, or String of numbers. 
+class Flexval {
+    //Pass val as a number, BigInt, or String of numbers. 
     //Constructor will decide what type to give the variable.
-    constructor(num, precisionDecimals = 3){
-        this.precision = precisionDecimals; //tracks decimal point location
-        if(this.above_max_safe(num)){
-            this.number = BigInt(num);
+    constructor(number, precision = 3){
+        this.precision = precision; //tracks decimal point location
+        if(this.above_max_safe(number)){
+            this.number = BigInt(number);
         }
         else{
-            this.number = Number(num);
+            this.number = Number(number);
             this.check_NaN()
         }
     }
 
     //Add the passed number to this number.
-    plus(num){
-        //if number is a FlexNum, convert it to just the raw number
-        if(num instanceof FlexNum){
-            num = num.number;
+    plus(val){
+        //if number is a Flexval, convert it to just the raw number
+        if(val instanceof Flexval){
+            val = val.number;
         }
 
         if(this.is_bigint()){
-            if(typeof num === 'bigint'){
-                this.number += num;
+            if(typeof val === 'bigint'){
+                this.number += val;
             }
             else{
-                this.number += this.convert_to_bigint(num);
+                this.number += this.convert_to_bigint(val);
             }
             
             if(!this.above_max_safe(this.number) && !this.below_min_safe(this.number)){
@@ -32,80 +32,80 @@ class FlexNum {
             }
         }
         else{
-            if(typeof num === 'number'){
-                if(this.above_max_safe(this.number + num) || this.below_min_safe(this.number + num)){
-                    this.number = this.convert_to_bigint(this.number) + this.convert_to_bigint(num);
+            if(typeof val === 'number'){
+                if(this.above_max_safe(this.number + val) || this.below_min_safe(this.number + val)){
+                    this.number = this.convert_to_bigint(this.number) + this.convert_to_bigint(val);
                 }
                 else{
-                    this.number += num;
+                    this.number += val;
                 }
                 
             }
             else {
-                if(this.above_max_safe(this.convert_to_bigint(this.number) + num) || this.below_min_safe(this.convert_to_bigint(this.number) + num)){
-                    this.number = this.convert_to_bigint(this.number) + num;
+                if(this.above_max_safe(this.convert_to_bigint(this.number) + val) || this.below_min_safe(this.convert_to_bigint(this.number) + val)){
+                    this.number = this.convert_to_bigint(this.number) + val;
                 }
                 else{
-                    this.number = this.number + Number(num);
+                    this.number = this.number + Number(val);
                 }
             }
         }
     }
 
     
-    minus(num){
-        //if number is a FlexNum, convert it to just the raw number
-        if(num instanceof FlexNum){
-            num = num.number;
+    minus(val){
+        //if number is a Flexval, convert it to just the raw number
+        if(val instanceof Flexval){
+            val = val.number;
         }
 
         if(this.is_bigint()){
-            if(typeof num === 'bigint'){
-                this.number -= num;
+            if(typeof val === 'bigint'){
+                this.number -= val;
             }
             else{
-                this.number -= this.convert_to_bigint(num);
+                this.number -= this.convert_to_bigint(val);
             }
 
-            //if between +/- safe ints, convert to Number
+            //if between +/- safe ints, convert to number
             if(!this.above_max_safe(this.number) && !this.below_min_safe(this.number)){
                 this.number = Number(this.number);
             }
         }
         else{
-            if(typeof num === 'number'){
-                if(this.above_max_safe(this.number - num) || this.below_min_safe(this.number - num)){
-                    this.number = this.convert_to_bigint(this.number) - this.convert_to_bigint(num);
+            if(typeof val === 'number'){
+                if(this.above_max_safe(this.number - val) || this.below_min_safe(this.number - val)){
+                    this.number = this.convert_to_bigint(this.number) - this.convert_to_bigint(val);
                 }
                 else{
-                    this.number -= num;
+                    this.number -= val;
                 }
                 
             }
             else{
-                if(this.above_max_safe(this.convert_to_bigint(this.number) - num) || this.below_min_safe(this.convert_to_bigint(this.number) - num)){
-                    this.number = this.convert_to_bigint(this.number) - num;
+                if(this.above_max_safe(this.convert_to_bigint(this.number) - val) || this.below_min_safe(this.convert_to_bigint(this.number) - val)){
+                    this.number = this.convert_to_bigint(this.number) - val;
                 }
                 else{
-                    this.number = this.number - Number(num);
+                    this.number = this.number - Number(val);
                 }
             }
         }
     }
     
-    mult(num){
-        //if number is a FlexNum, convert it to just the raw number
-        if(num instanceof FlexNum){
-            num = num.number;
+    mult(val){
+        //if number is a Flexval, convert it to just the raw number
+        if(val instanceof Flexval){
+            val = val.number;
         }
 
         if(this.is_bigint()){
-            if(typeof num === 'bigint'){
-                this.number *= num;
+            if(typeof val === 'bigint'){
+                this.number *= val;
             }
             else{
                 
-                this.number *= this.convert_to_bigint(num * Math.pow(10, this.precision));
+                this.number *= this.convert_to_bigint(val * Math.pow(10, this.precision));
                 this.number /= BigInt(Math.pow(10,this.precision));
             }
             
@@ -114,12 +114,12 @@ class FlexNum {
             }
         }
         else{
-            if(typeof num === 'number'){
-               if(this.above_max_safe(this.number * num) || this.below_min_safe(this.number * num)){
-                   this.number = this.convert_to_bigint(this.number) * this.convert_to_bigint(num);
+            if(typeof val === 'number'){
+               if(this.above_max_safe(this.number * val) || this.below_min_safe(this.number * val)){
+                   this.number = this.convert_to_bigint(this.number) * this.convert_to_bigint(val);
                }
                else{
-                   this.number *= num;
+                   this.number *= val;
                }
            }
            else{
@@ -127,12 +127,12 @@ class FlexNum {
                //converting to BigInt will cause precision errors
                this.number *= Math.pow(10, this.precision);
                
-               if(this.above_max_safe(this.convert_to_bigint(this.number) * num)){
-                   this.number = this.convert_to_bigint(this.number) * num;
+               if(this.above_max_safe(this.convert_to_bigint(this.number) * val)){
+                   this.number = this.convert_to_bigint(this.number) * val;
                    this.number /= BigInt(Math.pow(10,this.precision));
                }
                else{
-                   this.number = this.number * Number(num);
+                   this.number = this.number * Number(val);
                    this.number /= Math.pow(this.precision);
                }
 
@@ -140,23 +140,23 @@ class FlexNum {
         }
     }
     
-    divide(num){
-        //if number is a FlexNum, convert it to just the raw number
-        if(num instanceof FlexNum){
-            num = num.number;
+    divide(val){
+        //if number is a Flexval, convert it to just the raw number
+        if(val instanceof Flexval){
+            val = val.number;
         }
 
-        if(num == 0){
+        if(val == 0){
             throw new Error(`Cannot divide by zero.`);
         }
 
         if(this.is_bigint()){
-            if(typeof num === 'bigint'){
-                this.number /= num;
+            if(typeof val === 'bigint'){
+                this.number /= val;
             }
             else{
                 this.number *= BigInt(Math.pow(10,this.precision)); //move decimal for precision
-                this.number /= this.convert_to_bigint(num * Math.pow(10, this.precision)); //return decimal for precision
+                this.number /= this.convert_to_bigint(val * Math.pow(10, this.precision)); //return decimal for precision
             }
             
             if(!this.above_max_safe(this.number) && !this.below_min_safe(this.number)){
@@ -164,12 +164,12 @@ class FlexNum {
             }
         }
         else{
-            if(typeof num === 'number'){
-               if(this.above_max_safe(this.number / num) || this.below_min_safe(this.number / num)){
-                   this.number = this.number / num;
+            if(typeof val === 'number'){
+               if(this.above_max_safe(this.number / val) || this.below_min_safe(this.number / val)){
+                   this.number = this.number / val;
                }
                else{
-                   this.number /= num;
+                   this.number /= val;
                }
            }
            else{
@@ -177,36 +177,119 @@ class FlexNum {
                //converting to BigInt will cause precision errors
                this.number *= Math.pow(10, this.precision);
                
-               if(this.above_max_safe(this.convert_to_bigint(this.number) / num)){
-                   this.number = this.convert_to_bigint(this.number) / num;
+               if(this.above_max_safe(this.convert_to_bigint(this.number) / val)){
+                   this.number = this.convert_to_bigint(this.number) / val;
                    this.number /= BigInt(Math.pow(10,this.precision));
                }
                else{
-                   this.number = this.number / Number(num);
+                   this.number = this.number / Number(val);
                    this.number /= Math.pow(10,this.precision);
                }
            }
         }
     }
+
+    //raises this number to power of x
+    pow(val) {
+        if (val instanceof Flexval) {
+            val = val.number;
+        }
+        if (val < 0) {
+            throw new Error(`"${val}" must be positive.`);
+        }
+        //if x is a decimal, throw error
+        if (typeof val === 'number' && val % 1 != 0) {
+            throw new Error(`"${val}" must be an Integer.`);
+        }
+        if (this.is_number()) {
+            if (typeof val === 'number') {
+                let temp = Math.pow(this.number, val);
+                if (this.above_max_safe(temp) || this.below_min_safe(temp)) {
+                    this.number = this.convert_to_bigint(this.number);
+                    val = this.convert_to_bigint(val);
+                    this.number **= val;
+                }
+                else {
+                    this.number = temp;
+                }
+            }
+            else {
+                this.number = this.convert_to_bigint(this.number);
+                this.number **= val;
+            }
+        }
+        else { //if this is a BigInt
+            if (typeof val === 'number') {
+                val = this.convert_to_bigint(val);
+                this.number **= val;
+            }
+            else {
+                this.number **= val;
+            }
+        }
+    }
+
+    mod(val) {
+        //if number is a Flexval, convert it to just the raw number
+        if (val instanceof Flexval) {
+            val = val.number;
+        }
+        if (val == 0) {
+            throw new Error(`Cannot divide by zero.`);
+        }
+        //if x is a decimal, throw error
+        if (typeof x === 'number' && x % 1 != 0) {
+            throw new Error(`"${x}" must be an Integer.`);
+        }
+
+        //if this number is smaller than val, the mod is just this number.
+        if (this.number >= val) {
+            if (this.is_bigint()) {
+                if (typeof val === 'bigint') {
+                    this.number %= val;
+                }
+                else {
+                    this.number %= this.convert_to_bigint(val);
+                }
     
-    convert_to_bigint(num){
-        return BigInt(parseInt(num));
+                if (!this.above_max_safe(this.number) && !this.below_min_safe(this.number)) {
+                    this.number = Number(this.number);
+                }
+            }
+            else {
+                if (typeof val === 'number') {
+                    this.number %= val;
+                }
+                else{
+                    //if this num is bigger than val, and val is a bigint, convert val to number
+                    this.number %= Number(val);
+                }
+            }
+        }
+    }
+
+    convert_to_bigint(val){
+        return BigInt(parseInt(val));
+    }
+
+    convert_to_number(val){
+        return Number(val);
     }
 
     //checks if passed number is above max safe 
     //return true if above safe
-    above_max_safe(num){
-        return (num > Number.MAX_SAFE_INTEGER / Math.pow(10,this.precision));
+    above_max_safe(val){
+        return (val > Number.MAX_SAFE_INTEGER / Math.pow(10,this.precision));
     }
 
-    below_min_safe(num){
-        return (num < Number.MIN_SAFE_INTEGER / Math.pow(10,this.precision));
+    below_min_safe(val){
+        return (val < Number.MIN_SAFE_INTEGER / Math.pow(10,this.precision));
     }
 
     //checks to make sure the type is a number or BigInt
     check_NaN(){
         if(isNaN(this.number)){
-            throw new Error(`ERROR: "${num}" must be a Number or BigInt.`);
+            throw new Error(`ERROR: "${val}" must be a number or BigInt.`);
         }
     }
 
@@ -214,42 +297,42 @@ class FlexNum {
     //>>>>>>>> regular compares actually work so I might not need these.
 
     //greater than
-    gt(num){
-        if (num instanceof FlexNum) {
-            num = num.number;
+    gt(val){
+        if (val instanceof Flexval) {
+            val = val.number;
         }
-        return this.number > num;
+        return this.number > val;
     }
 
     //greater than or equal
-    gte(num) {
-        if (num instanceof FlexNum) {
-            num = num.number;
+    gte(val) {
+        if (val instanceof Flexval) {
+            val = val.number;
         }
-        return this.number >= num;
+        return this.number >= val;
     }
 
     //less than
-    lt(num){
-        if (num instanceof FlexNum) {
-            num = num.number;
+    lt(val){
+        if (val instanceof Flexval) {
+            val = val.number;
         }
-        return this.number < num;
+        return this.number < val;
     }
 
     //less than or equal
-    lte(num) {
-        if (num instanceof FlexNum) {
-            num = num.number;
+    lte(val) {
+        if (val instanceof Flexval) {
+            val = val.number;
         }
-        return this.number <= num;
+        return this.number <= val;
     }
 
-    equal(num){
-        if (num instanceof FlexNum) {
-            num = num.number;
+    equal(val){
+        if (val instanceof Flexval) {
+            val = val.number;
         }
-        return this.number == num;
+        return this.number == val;
     }
 
     floor(){
@@ -277,97 +360,6 @@ class FlexNum {
         else{
             if(this.number < 0){
                 this.number = this.number * -1n;
-            }
-        }
-    }
-
-    //raises this number to power of x
-    pow(x){
-        if (x instanceof FlexNum) {
-            x = x.number;
-        }
-        if( x < 0){
-            throw new Error(`"${x}" must be positive.`);
-        }
-        //if x is a decimal, throw error
-        if( typeof x === 'number' && x % 1 != 0){
-            throw new Error(`"${x}" must be an Integer.`);
-        }
-        if(this.is_number()){
-            if (typeof x === 'number'){
-                let temp = Math.pow(this.number, x);
-                if (this.above_max_safe(temp) || this.below_min_safe(temp)){
-                    this.number = this.convert_to_bigint(this.number);
-                    x = this.convert_to_bigint(x);
-                    this.number **= x;
-                }
-                else{
-                    this.number = temp;
-                }
-            }
-            else{
-                this.number = this.convert_to_bigint(this.number);
-                this.number **= x;
-            }
-        }
-        else{ //if this is a BigInt
-            if (typeof x === 'number') {
-                x = this.convert_to_bigint(x);
-                this.number **= x;
-            }
-            else {
-                this.number **= x;
-            }
-        }
-    }
-
-    mod(num) {
-        //if number is a FlexNum, convert it to just the raw number
-        if (num instanceof FlexNum) {
-            num = num.number;
-        }
-        //if x is a decimal, throw error
-        if (typeof x === 'number' && x % 1 != 0) {
-            throw new Error(`"${x}" must be an Integer.`);
-        }
-
-        if (this.is_bigint()) {
-            if (typeof num === 'bigint') {
-                this.number *= num;
-            }
-            else {
-
-                this.number *= this.convert_to_bigint(num * Math.pow(10, this.precision));
-                this.number /= BigInt(Math.pow(10, this.precision));
-            }
-
-            if (!this.above_max_safe(this.number) && !this.below_min_safe(this.number)) {
-                this.number = Number(this.number);
-            }
-        }
-        else {
-            if (typeof num === 'number') {
-                if (this.above_max_safe(this.number * num) || this.below_min_safe(this.number * num)) {
-                    this.number = this.convert_to_bigint(this.number) * this.convert_to_bigint(num);
-                }
-                else {
-                    this.number *= num;
-                }
-            }
-            else {
-                //TODO if this is close to max, moving the pointer before 
-                //converting to BigInt will cause precision errors
-                this.number *= Math.pow(10, this.precision);
-
-                if (this.above_max_safe(this.convert_to_bigint(this.number) * num)) {
-                    this.number = this.convert_to_bigint(this.number) * num;
-                    this.number /= BigInt(Math.pow(10, this.precision));
-                }
-                else {
-                    this.number = this.number * Number(num);
-                    this.number /= Math.pow(this.precision);
-                }
-
             }
         }
     }
@@ -407,4 +399,4 @@ class FlexNum {
     }
 }
 
-module.exports = FlexNum;
+module.exports = Flexval;

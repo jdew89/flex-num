@@ -211,6 +211,7 @@ x = new FlexNum(10);
 y = new FlexNum(20);
 
 x = new FlexNum(y);
+//x = new FlexNum({number: 33});
 console.log("==============");
 console.log(x);
 console.log(y);
@@ -234,8 +235,8 @@ x.abs();
 console.log(x);
 
 console.log("\n***********power func***********");
-x = new FlexNum(-2);
-y = 201;
+x = new FlexNum(10);
+y = 20;
 
 x.pow(y);
 console.log(x);
@@ -244,11 +245,12 @@ x.plus(y);
 console.log(x);
 
 console.log("\n***********mod func***********");
-x = new FlexNum(10);
-y = 4;
+x = new FlexNum(10000000000000000000n);
+y = 3.2;
 
 x.mod(y);
 console.log(x);
-y = 2.5;
+x = new FlexNum(10);
+y = 2.2;
 x.mod(y);
 console.log(x);
