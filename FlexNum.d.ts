@@ -1,27 +1,27 @@
 declare module FlexNum {
-    plus(num: any): void;
+    plus(val: any): void;
 
-    minus(num: any): void;
+    minus(val: any): void;
 
-    mult(num: any): void;
+    mult(val: any): void;
 
-    divide(num: any): void;
+    divide(val: any): void;
 
-    convert_to_bigint(num: number): bigint;
+    convert_to_bigint(val: number): bigint;
 
-    above_max_safe(num: number): boolean;
+    above_max_safe(val: number): boolean;
 
-    below_min_safe(num: number): boolean;
+    below_min_safe(val: number): boolean;
 
     check_NaN(): void;
 
     //greater than
-    gt(num: any): boolean;
+    gt(val: any): boolean;
 
     //less than
-    lt(num: any): boolean;
+    lt(val: any): boolean;
 
-    equal(num: any): boolean;
+    equal(val: any): boolean;
 
     is_number(): boolean;
 
