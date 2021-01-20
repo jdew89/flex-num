@@ -211,7 +211,7 @@ x = new FlexNum(10);
 y = new FlexNum(20);
 
 x = new FlexNum(y);
-//x = new FlexNum({number: 33});
+x = new FlexNum({number: 33, precision: 5});
 console.log("==============");
 console.log(x);
 console.log(y);

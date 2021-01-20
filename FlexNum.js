@@ -1,21 +1,27 @@
-class Flexval {
+class FlexNum {
     //Pass val as a number, BigInt, or String of numbers. 
     //Constructor will decide what type to give the variable.
     constructor(number, precision = 3){
+        if(number instanceof Object){
+            if(number.precision){
+                precision = number.precision;
+            }
+            number = number.number;
+        }
         this.precision = precision; //tracks decimal point location
         if(this.above_max_safe(number)){
             this.number = BigInt(number);
         }
         else{
             this.number = Number(number);
-            this.check_NaN()
+            this.check_NaN();
         }
     }
 
     //Add the passed number to this number.
     plus(val){
-        //if number is a Flexval, convert it to just the raw number
-        if(val instanceof Flexval){
+        //if number is a FlexNum, convert it to just the raw number
+        if(val instanceof FlexNum){
             val = val.number;
         }
 
@@ -54,8 +60,8 @@ class Flexval {
 
     
     minus(val){
-        //if number is a Flexval, convert it to just the raw number
-        if(val instanceof Flexval){
+        //if number is a FlexNum, convert it to just the raw number
+        if(val instanceof FlexNum){
             val = val.number;
         }
 
@@ -94,8 +100,8 @@ class Flexval {
     }
     
     mult(val){
-        //if number is a Flexval, convert it to just the raw number
-        if(val instanceof Flexval){
+        //if number is a FlexNum, convert it to just the raw number
+        if(val instanceof FlexNum){
             val = val.number;
         }
 
@@ -141,8 +147,8 @@ class Flexval {
     }
     
     divide(val){
-        //if number is a Flexval, convert it to just the raw number
-        if(val instanceof Flexval){
+        //if number is a FlexNum, convert it to just the raw number
+        if(val instanceof FlexNum){
             val = val.number;
         }
 
@@ -191,7 +197,7 @@ class Flexval {
 
     //raises this number to power of x
     pow(val) {
-        if (val instanceof Flexval) {
+        if (val instanceof FlexNum) {
             val = val.number;
         }
         if (val < 0) {
@@ -230,8 +236,8 @@ class Flexval {
     }
 
     mod(val) {
-        //if number is a Flexval, convert it to just the raw number
-        if (val instanceof Flexval) {
+        //if number is a FlexNum, convert it to just the raw number
+        if (val instanceof FlexNum) {
             val = val.number;
         }
         if (val == 0) {
@@ -298,7 +304,7 @@ class Flexval {
 
     //greater than
     gt(val){
-        if (val instanceof Flexval) {
+        if (val instanceof FlexNum) {
             val = val.number;
         }
         return this.number > val;
@@ -306,7 +312,7 @@ class Flexval {
 
     //greater than or equal
     gte(val) {
-        if (val instanceof Flexval) {
+        if (val instanceof FlexNum) {
             val = val.number;
         }
         return this.number >= val;
@@ -314,7 +320,7 @@ class Flexval {
 
     //less than
     lt(val){
-        if (val instanceof Flexval) {
+        if (val instanceof FlexNum) {
             val = val.number;
         }
         return this.number < val;
@@ -322,14 +328,14 @@ class Flexval {
 
     //less than or equal
     lte(val) {
-        if (val instanceof Flexval) {
+        if (val instanceof FlexNum) {
             val = val.number;
         }
         return this.number <= val;
     }
 
     equal(val){
-        if (val instanceof Flexval) {
+        if (val instanceof FlexNum) {
             val = val.number;
         }
         return this.number == val;
@@ -399,4 +405,4 @@ class Flexval {
     }
 }
 
-module.exports = Flexval;
+module.exports = FlexNum;
