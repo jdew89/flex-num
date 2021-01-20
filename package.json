@@ -22,7 +22,7 @@
     "biginteger",
     "precision"
   ],
-  "author": "Jeff DeWitt",
+  "author": "Jeff DeWitt <jadewitt00@gmail.com>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/jdew89/flex-num/issues"
