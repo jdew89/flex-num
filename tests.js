@@ -189,7 +189,7 @@ console.log(x.lt(y));
 x = new FlexNum(5);
 y = new FlexNum(4);
 
-console.log("\nExpected output: true");
+console.log("\nExpected output: false");
 console.log(x.lte(y));
 
 
@@ -258,5 +258,5 @@ console.log(x);
 
 console.log("\n***********To Fixed Func***********");
 
-x = new FlexNum(333333333333333333333333333n);
+x = new FlexNum(3n);
 console.log(x.to_fixed(3));
