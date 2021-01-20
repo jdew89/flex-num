@@ -254,3 +254,9 @@ x = new FlexNum(10);
 y = 2.2;
 x.mod(y);
 console.log(x);
+
+
+console.log("\n***********To Fixed Func***********");
+
+x = new FlexNum(333333333333333333333333333n);
+console.log(x.to_fixed(3));

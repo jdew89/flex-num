@@ -377,6 +377,17 @@ class FlexNum {
     is_bigint(){
         return typeof this.number === 'bigint';
     }
+
+    //formats a number using fixed point notation.
+    //pass in the value
+    //only works on Number, not BigInt
+    //default is zero digits
+    to_fixed(digits = 0){
+        if(this.is_number()){
+            return this.number.toFixed(digits)
+        }
+        return this.number;
+    }
     
     toString(){
         return this.number.toString();
