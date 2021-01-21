@@ -260,3 +260,9 @@ console.log("\n***********To Fixed Func***********");
 
 x = new FlexNum(3n);
 console.log(x.to_fixed(3));
+
+console.log("\n***********To aa string***********");
+
+x = new FlexNum(1231231111123121n);
+console.log(x.to_aa_string());
+

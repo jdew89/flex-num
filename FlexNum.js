@@ -1,3 +1,6 @@
+
+
+
 class FlexNum {
     //Pass val as a number, BigInt, or String of numbers. 
     //Constructor will decide what type to give the variable.
@@ -376,6 +379,13 @@ class FlexNum {
         return typeof this.number === 'bigint';
     }
 
+    is_float(){
+        if (typeof this.number === 'number' && this.number % 1 != 0) {
+            return true;
+        }
+        return false;
+    }
+
     //formats a number using fixed point notation.
     //pass in the value
     //only works on Number, not BigInt
@@ -386,6 +396,9 @@ class FlexNum {
         }
         return this.number;
     }
+
+    
+
     
     toString(){
         return this.number.toString();
@@ -400,6 +413,47 @@ class FlexNum {
             if(this.number.toString())
             return this.number;
         }
+    }
+
+    to_aa_string(){
+        let insertseperator = function(x) {
+            var parts = x.toString().split(".");
+            parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+            return parts.join(".");
+        }
+
+        //if less than 1000, then return a normal str with decimals
+        if(this.number < 1000){
+            return this.number.toString();
+        }
+
+        //if number is >= 1000 then ignore the decimals
+        let numstr = (this.is_number()) ? this.number.toFixed(0): this.number.toString();
+        let numlen = numstr.length;
+        switch (numlen % 3){
+            case 0:
+                numstr = numstr.slice(0,6);
+                break;
+            case 1:
+                numstr = numstr.slice(0,4);
+                break;
+            case 2: 
+                numstr = numstr.slice(0,5);
+                break;
+            default:
+                numstr = numstr.slice(0, 6);
+
+
+        }
+        //console.log(numlen);
+
+        //let postfix = '';
+        let postfix_aa = ["","k","m","b","t","aa","ab", "ac"];
+
+        //Math.floor(numlen / 3)
+        
+        return insertseperator(numstr) + postfix_aa[Math.floor((numlen-1) / 3)]; 
+
     }
 
     //only returned integer string with no decimals.
