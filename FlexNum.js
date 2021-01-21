@@ -274,33 +274,34 @@ class FlexNum {
         }
     }
 
-    convert_to_bigint(val){
-        return BigInt(parseInt(val));
-    }
-
-    convert_to_number(val){
-        return Number(val);
-    }
-
-    //checks if passed number is above max safe 
-    //return true if above safe
-    above_max_safe(val){
-        return (val > Number.MAX_SAFE_INTEGER / Math.pow(10,this.precision));
-    }
-
-    below_min_safe(val){
-        return (val < Number.MIN_SAFE_INTEGER / Math.pow(10,this.precision));
-    }
-
-    //checks to make sure the type is a number or BigInt
-    check_NaN(){
-        if(isNaN(this.number)){
-            throw new Error(`ERROR: "${val}" must be a number or BigInt.`);
+    floor() {
+        if (this.is_number()) {
+            this.number = Math.floor(this.number);
         }
     }
 
+    ceil() {
+        if (this.is_number()) {
+            this.number = Math.ceil(this.number);
+        }
+    }
 
-    //>>>>>>>> regular compares actually work so I might not need these.
+    round() {
+        if (this.is_number()) {
+            this.number = Math.round(this.number);
+        }
+    }
+
+    abs() {
+        if (this.is_number()) {
+            this.number = Math.abs(this.number);
+        }
+        else {
+            if (this.number < 0) {
+                this.number = this.number * -1n;
+            }
+        }
+    }
 
     //greater than
     gt(val){
@@ -341,35 +342,32 @@ class FlexNum {
         return this.number == val;
     }
 
-    floor(){
-        if(this.is_number()){
-            this.number = Math.floor(this.number);
+
+    convert_to_bigint(val) {
+        return BigInt(parseInt(val));
+    }
+
+    convert_to_number(val) {
+        return Number(val);
+    }
+
+    //checks if passed number is above max safe 
+    //return true if above safe
+    above_max_safe(val) {
+        return (val > Number.MAX_SAFE_INTEGER / Math.pow(10, this.precision));
+    }
+
+    below_min_safe(val) {
+        return (val < Number.MIN_SAFE_INTEGER / Math.pow(10, this.precision));
+    }
+
+    //checks to make sure the type is a number or BigInt
+    check_NaN() {
+        if (isNaN(this.number)) {
+            throw new Error(`ERROR: "${val}" must be a number or BigInt.`);
         }
     }
 
-    ceil(){
-        if (this.is_number()) {
-            this.number = Math.ceil(this.number);
-        }
-    }
-
-    round(){
-        if (this.is_number()) {
-            this.number = Math.round(this.number);
-        }
-    }
-
-    abs(){
-        if(this.is_number()){
-            this.number = Math.abs(this.number);
-        }
-        else{
-            if(this.number < 0){
-                this.number = this.number * -1n;
-            }
-        }
-    }
-    
     is_number(){
         return typeof this.number === 'number';
     }
