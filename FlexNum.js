@@ -1,5 +1,5 @@
 
-
+const POSTFIX_AA = ["", "k", "m", "b", "t", "aa", "ab", "ac"];
 
 class FlexNum {
     //Pass val as a number, BigInt, or String of numbers. 
@@ -445,15 +445,8 @@ class FlexNum {
 
 
         }
-        //console.log(numlen);
-
-        //let postfix = '';
-        let postfix_aa = ["","k","m","b","t","aa","ab", "ac"];
-
-        //Math.floor(numlen / 3)
         
-        return insertseperator(numstr) + postfix_aa[Math.floor((numlen-1) / 3)]; 
-
+        return insertseperator(numstr) + POSTFIX_AA[Math.floor((numlen-1) / 3)]; 
     }
 
     //only returned integer string with no decimals.
