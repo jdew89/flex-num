@@ -439,7 +439,7 @@ class FlexNum {
 
         //if less than 1000, then return a normal str with decimals
         if(this.number < 1000){
-            return this.number.toString();
+            return this.number.toFixed(this.precision);
         }
 
         //if number is >= 1000 then ignore the decimals
