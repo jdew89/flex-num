@@ -14,7 +14,7 @@ npm install git+https://github.com/jdew89/flex-num.git
 Then you include it in your project with:
 
 ```
-const FlexNum = require('FlexNum');
+const FlexNum = require('flex-num');
 ```
 
 # Usage
