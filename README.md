@@ -152,9 +152,13 @@ x.to_fixed(3); //Result: 2.500
 x = new FlexNum(2.5);
 x.to_integer_string() //Result: 2
 
-//To Big String
-x = new FlexNum(2.5);
-x.to_big_string() //Result: 2.500
+//To aa String
+//This method returns a string of the number in aa notation.
+//It inserts a letter starting with 1000 = k
+// It goes as follows:
+// "", "k", "m", "b", "t", "aa", "ab", etc...
+x = new FlexNum(12345678901234567890n);
+x.to_aa_string() //Result: 12.345ab
 ```
 
 # Licence
