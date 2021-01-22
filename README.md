@@ -1,9 +1,5 @@
 # flex-num
-A Javascript Module for flexing Numbers to/from BigInts's and executing operations between the two classes. 
-
-Planning to add support for better decimal precision later if needed.
-
-This module will hold a Number until it reaches Number.MAX_SAFE_INTEGER. Then it will switch to the native BigInt object. 
+A Javascript Module for flexing Numbers to/from BigInts's and executing operations between the two classes. This module will hold a Number until it reaches Number.MAX_SAFE_INTEGER. Then it will switch to the native BigInt object. Operations between BitInts and Numbers is normally prohibited, but flex-num will handle the conversion between the two classes and calculate the operations. 
 
 
 # Installation
