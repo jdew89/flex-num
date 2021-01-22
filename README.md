@@ -7,14 +7,14 @@ You can install the package right from GitHub:
 ```
 npm install git+https://github.com/jdew89/flex-num.git
 ```
-Then you include it in your project with:
+Then include it in your project with:
 
 ```
 const FlexNum = require('flex-num');
 ```
 
 # Usage
-To create a new FlexNum, to the following:
+To create a new FlexNum, do the following:
 
 ```
 var x = new FlexNum(10);
@@ -24,14 +24,23 @@ You can create a new FlexNum from any number type:
 
 ```
 var num = new FlexNum(10); //Number
-var float = new FlexNum(10.5; //Float
+var float = new FlexNum(10.5); //Float
 var bignum = new FlexNum(10000000n); //Native BigInt
+var numstr = new FlexNum("123"); //Number as a string
+var numobj = new FlexNum({number: 321}); //Number as an object
+```
+You can also create numbers with different precision. This is useful if you have large decimals that need to be used with BitInts. The default precision is `3`.
+
+```
+var num = new FlexNum(10, 5); // FlexNum with number 10, precision 5
+var num = new FlexNum({number: 20, precision: 4}); //Can also create with an Object
+
 ```
 
 To perform a math operation, call the appropriate method on the FlexNum object:
 
 ```
-var x = FlexNum(10);
+var x = FlexNum(10); //Create FlexNum with number 10
 
 x.plus(20); //Result: 30
 x.minus(5); //Result: 25
